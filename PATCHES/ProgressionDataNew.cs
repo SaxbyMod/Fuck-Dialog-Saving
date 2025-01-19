@@ -2,55 +2,73 @@
 using HarmonyLib;
 using System;
 
-namespace Fuck_Dialouge_Saving.PATCHES
+namespace Fuck_Dialog_Saving.PATCHES
 {
-    [HarmonyPatch(nameof(ProgressionData))]
-    public static class ProgressionDataNew
+    public static class ProgressionDataPatches
     {
-        [HarmonyPrefix]
-        public static void SetAbilityLearned(Ability ability)
+        // Patch for SetAbilityLearned
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetAbilityLearned))]
+        public static bool PrefixAbilityLearned(Ability ability)
         {
             if (!ProgressionData.Data.learnedAbilities.Contains(ability))
             {
-                Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Ability: {ability.ToString()}");
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving ability: {ability}");
             }
+            return true;
         }
-        [HarmonyPrefix]
-        public static void SetMechanicLearned(MechanicsConcept mechanic)
+
+        // Patch for SetMechanicLearned
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetMechanicLearned))]
+        public static bool PrefixMechanicLearned(MechanicsConcept mechanic)
         {
             if (!SaveFile.IsAscension && !ProgressionData.Data.learnedMechanics.Contains(mechanic))
             {
-                Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Mechanic: {mechanic.ToString()}");
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving mechanic: {mechanic}");
             }
+            return true;
         }
-        [HarmonyPrefix]
-        public static void SetCardLearned(CardInfo card)
+
+        // Patch for SetCardLearned
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetCardLearned))]
+        public static bool PrefixCardLearned(CardInfo card)
         {
             if (!ProgressionData.Data.learnedCards.Contains(card.name))
             {
-                Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Card: {card.ToString()}");
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving card: {card.name}");
             }
+            return true;
         }
-        [HarmonyPrefix]
-        public static void SetCardIntroduced(CardInfo card)
+
+        // Patch for SetCardIntroduced
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetCardIntroduced))]
+        public static bool PrefixCardIntroduced(CardInfo card)
         {
             if (!ProgressionData.Data.introducedCards.Contains(card.name))
             {
-                Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Introduced Card: {card.name.ToString()}");
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced card: {card.name}");
             }
+            return true;
         }
-        [HarmonyPrefix]
-        public static void SetConsumableIntroduced(ItemData item)
+
+        // Patch for SetConsumableIntroduced (ItemData overload)
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetConsumableIntroduced))]
+        public static bool PrefixItemIntroduced(ItemData item)
         {
-            Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Introduced Cosnsumable: {item.ToString()}");
+            {
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced consumable: {item}");
+            }
+            return true;
         }
-        [HarmonyPrefix]
-        public static void SetConsumableIntroduced(string name)
+
+        // Patch for SetConsumableIntroduced (string overload)
+        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetConsumableIntroduced))]
+        public static bool PrefixItemIntroduced(string name)
         {
             if (!ProgressionData.Data.introducedConsumables.Contains(name))
             {
-                Console.WriteLine($"{Fuck_Dialog_Saving.PluginGuid}: I was told not to save the Introduced Consumable: {name.ToString()}");
+                Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced consumable: {name}");
             }
+            return true;
         }
     }
 }

@@ -11,8 +11,6 @@ namespace Fuck_Dialouge_Saving
     {
         // --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
         // These are variables that exist everywhere in the entire class.
         public const string PluginGuid = "creator.FuckDialougeSaving";
         public const string PluginName = "Fuck Dialouge Saving";
@@ -23,12 +21,12 @@ namespace Fuck_Dialouge_Saving
         public static ManualLogSource Log = new ManualLogSource(PluginName);
 
         // Declare Harmony here for future Harmony patches. You'll use Harmony to patch the game's code outside of the scope of the API.
-        readonly Harmony harmony = new(PluginGuid);
+        public static Harmony harmony = new(PluginGuid);
 
         public void Awake()
         {
+            harmony.PatchAll(typeof(Fuck_Dialog_Saving));
             Logger.LogMessage($"{PluginGuid}: Loaded Mod: {PluginName} - {PluginVersion}");
-
         }
     }
 }
