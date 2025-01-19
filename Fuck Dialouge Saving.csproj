@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Fuck_Dialog_Saving</AssemblyName>
+    <Description>You Shall Not Save My Dialog</Description>
+    <Version>1.0.0</Version>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>Latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx-MonoMod_Loader_Inscryption" Version="1.0.0" />
+    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.Core" Version="5.*" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.24" IncludeAssets="compile" />
+    <PackageReference Include="Inscryption.GameLibs" Version="1.9.0-r.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<Reference Include="Assembly-CSharp">
+		  <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Inscryption\Inscryption_Data\Managed\Assembly-CSharp.dll</HintPath>
+			<Publicize>true</Publicize>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="InscryptionAPI">
+			<HintPath>lib\InscryptionAPI.dll</HintPath>
+			<Publicize>true</Publicize>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="InscryptionCommunityPatch">
+			<HintPath>lib\InscryptionCommunityPatch.dll</HintPath>
+			<Publicize>true</Publicize>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Sirenix.Serialization">
+			<HintPath>lib\Sirenix.Serialization.dll</HintPath>
+			<Publicize>true</Publicize>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+</Project>
