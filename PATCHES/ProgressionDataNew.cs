@@ -4,71 +4,72 @@ using System;
 
 namespace Fuck_Dialog_Saving.PATCHES
 {
-    public static class ProgressionDataPatches
+    [HarmonyPatch]
+    internal static class ProgressionDataNew
     {
         // Patch for SetAbilityLearned
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetAbilityLearned))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetAbilityLearned))]
         public static bool PrefixAbilityLearned(Ability ability)
         {
             if (!ProgressionData.Data.learnedAbilities.Contains(ability))
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving ability: {ability}");
             }
-            return true;
+            return false;
         }
 
         // Patch for SetMechanicLearned
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetMechanicLearned))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetMechanicLearned))]
         public static bool PrefixMechanicLearned(MechanicsConcept mechanic)
         {
             if (!SaveFile.IsAscension && !ProgressionData.Data.learnedMechanics.Contains(mechanic))
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving mechanic: {mechanic}");
             }
-            return true;
+            return false;
         }
 
         // Patch for SetCardLearned
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetCardLearned))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetCardLearned))]
         public static bool PrefixCardLearned(CardInfo card)
         {
             if (!ProgressionData.Data.learnedCards.Contains(card.name))
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving card: {card.name}");
             }
-            return true;
+            return false;
         }
 
         // Patch for SetCardIntroduced
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetCardIntroduced))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetCardIntroduced))]
         public static bool PrefixCardIntroduced(CardInfo card)
         {
             if (!ProgressionData.Data.introducedCards.Contains(card.name))
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced card: {card.name}");
             }
-            return true;
+            return false;
         }
 
         // Patch for SetConsumableIntroduced (ItemData overload)
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetConsumableIntroduced))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetConsumableIntroduced), new Type[] {typeof(ItemData)})]
         public static bool PrefixItemIntroduced(ItemData item)
         {
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced consumable: {item}");
             }
-            return true;
+            return false;
         }
 
         // Patch for SetConsumableIntroduced (string overload)
-        [HarmonyPrefix, HarmonyPatch(nameof(ProgressionData.SetConsumableIntroduced))]
+        [HarmonyPrefix, HarmonyPatch(typeof(ProgressionData), nameof(ProgressionData.SetConsumableIntroduced), new Type[] { typeof(string) })]
         public static bool PrefixItemIntroduced(string name)
         {
             if (!ProgressionData.Data.introducedConsumables.Contains(name))
             {
                 Console.WriteLine($"[ProgressionDataPatches] Skipping saving introduced consumable: {name}");
             }
-            return true;
+            return false;
         }
     }
 }

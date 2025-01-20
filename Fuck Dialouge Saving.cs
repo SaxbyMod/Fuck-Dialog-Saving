@@ -1,12 +1,10 @@
 using BepInEx;
 using BepInEx.Logging;
+using Fuck_Dialog_Saving.PATCHES;
 using HarmonyLib;
 
 namespace Fuck_Dialouge_Saving
 {
-    [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
-    [BepInDependency("cyantist.inscryption.api", BepInDependency.DependencyFlags.HardDependency)]
-
     public class Fuck_Dialog_Saving : BaseUnityPlugin
     {
         // --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,7 +23,7 @@ namespace Fuck_Dialouge_Saving
 
         public void Awake()
         {
-            harmony.PatchAll(typeof(Fuck_Dialog_Saving));
+            harmony.PatchAll(typeof(ProgressionDataNew));
             Logger.LogMessage($"{PluginGuid}: Loaded Mod: {PluginName} - {PluginVersion}");
         }
     }

@@ -33,16 +33,6 @@
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="InscryptionAPI">
-			<HintPath>lib\InscryptionAPI.dll</HintPath>
-			<Publicize>true</Publicize>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="InscryptionCommunityPatch">
-			<HintPath>lib\InscryptionCommunityPatch.dll</HintPath>
-			<Publicize>true</Publicize>
-			<Private>false</Private>
-		</Reference>
 		<Reference Include="Sirenix.Serialization">
 			<HintPath>lib\Sirenix.Serialization.dll</HintPath>
 			<Publicize>true</Publicize>
