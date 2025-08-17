@@ -5,6 +5,7 @@ using HarmonyLib;
 
 namespace Fuck_Dialouge_Saving
 {
+    [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class Fuck_Dialog_Saving : BaseUnityPlugin
     {
         // --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -12,7 +13,7 @@ namespace Fuck_Dialouge_Saving
         // These are variables that exist everywhere in the entire class.
         public const string PluginGuid = "creator.FuckDialougeSaving";
         public const string PluginName = "Fuck Dialouge Saving";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
         public const string PluginPrefix = "Fuck_Dialog_Saving";
 
         // Define a Manual Log Source
